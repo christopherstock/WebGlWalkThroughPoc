@@ -234,7 +234,7 @@
                     // this.tex1.uScale  -= 0.01;
                     // this.tex1.uOffset += 0.005;
                     this.tex1.vScale  -= 0.01;
-                    this.tex1.vOffset += 0.005;
+                    this.tex1.vOffset -= 0.0005;
                 }
                 else
                 {
@@ -244,7 +244,7 @@
                     // this.tex2.uScale  -= 0.01;
                     // this.tex2.uOffset += 0.005;
                     this.tex2.vScale  -= 0.01;
-                    this.tex2.vOffset += 0.005;
+                    this.tex2.vOffset -= 0.0005;
                 }
             }
         }
