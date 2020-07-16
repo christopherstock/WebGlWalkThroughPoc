@@ -23,9 +23,9 @@
             const engine = new BABYLON.Engine(canvasContext, true);
             const scene = new BABYLON.Scene(engine);
 
-            //const camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+            const camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
 
-            /*
+
                 // This targets the camera to scene origin
                 camera.setTarget(BABYLON.Vector3.Zero());
 
@@ -66,12 +66,12 @@
                  sphere.material = mat
 
                 scene.onBeforeRenderObservable.add(()=>{
-                    sphere.visibility -= 0.01
+                    sphere.visibility -= 0.001
                 })
 
                 bz.Main.log( 'Completed init !' );
-            */
 
+/*
             const camera2 = new BABYLON.ArcRotateCamera('Camera', -Math.PI / 2, Math.PI / 2, 5, BABYLON.Vector3.Zero(), scene);
             camera2.attachControl(canvas, true);
             camera2.inputs.attached.mousewheel.detachControl(canvas);
@@ -85,7 +85,7 @@
                 },
                 scene
             );
-
+*/
             // Register a render loop to repeatedly render the scene
             engine.runRenderLoop(function () {
                 scene.render();
