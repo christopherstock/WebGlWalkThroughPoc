@@ -2,11 +2,17 @@
 
 A 3D photo walkthrough with WebGL.
 
+## Online Demo:
+
+https://christopherstock.github.io/WebGlWalkThroughPoc/dist/
+
 ## Acceptance Criteria:
 
 - look around in Photodome
 - clickable info icon sprites in 3d space
 - transition between two Photodomes
+
+<hr>
 
 ## Tech Stack
 - Node.js 12.13.1
@@ -31,6 +37,8 @@ npm run webpack:devserver
 ```
 http://localhost:1234
 ```
+
+<hr>
 
 ## babylon-zero
 
