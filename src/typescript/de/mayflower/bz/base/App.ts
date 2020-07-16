@@ -47,6 +47,9 @@
             document.body.appendChild(canvas);
 
             const engine = new BABYLON.Engine(canvasContext, true);
+engine.loadingUIBackgroundColor = "#ffffff";
+engine.displayLoadingUI();
+
             const scene = new BABYLON.Scene(engine);
 
             const camera2 = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 0, 0), scene);
@@ -169,11 +172,6 @@
                 }
             };
 
-            engine.runRenderLoop(() => {
-                this.onRun();
-                scene.render();
-            });
-
             window.addEventListener('resize', () => {
 
                 canvas.width = window.innerWidth;
@@ -181,6 +179,18 @@
 
                 engine.resize();
             });
+
+            scene.executeWhenReady(
+                () :void => {
+
+                    engine.hideLoadingUI();
+
+                   engine.runRenderLoop(() => {
+                        this.onRun();
+                        scene.render();
+                    });
+                }
+            );
         }
 
         /** ************************************************************************************************************
