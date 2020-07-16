@@ -9,12 +9,13 @@
     *******************************************************************************************************************/
     export class App
     {
-        private static readonly     TRANSFER_SPEED :number = 0.025;
-    
-        private sphere1;
-        private sphere2;
+        private static readonly     ANIMATION_TICKS :number = 100;
+
+        private sphere1 :BABYLON.Mesh;
+        private sphere2 :BABYLON.Mesh;
 
         private animate = false;
+        private animateTick = 0;
 
         private sprite1;
         private sprite2;
@@ -22,6 +23,15 @@
         private sprite4;
         private sprite5;
         private sprite6;
+
+        private dome1 :BABYLON.PhotoDome;
+        private dome2 :BABYLON.PhotoDome;
+
+        private mat1 :BABYLON.StandardMaterial;
+        private mat2 :BABYLON.StandardMaterial;
+
+        private tex1 :BABYLON.Texture;
+        private tex2 :BABYLON.Texture;
 
         /** ************************************************************************************************************
         *   Inits the app from scratch.
@@ -111,7 +121,7 @@
             this.sprite6.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function (ev) {
             }));
 
-            const dome1 = new BABYLON.PhotoDome(
+            this.dome1 = new BABYLON.PhotoDome(
                 'testdome1',
                 'res/image/skybox/market360.jpg',
                 {
@@ -120,8 +130,8 @@
                 },
                 scene
             );
-            dome1.mesh.isPickable = false;
-            const dome2 = new BABYLON.PhotoDome(
+            this.dome1.mesh.isPickable = false;
+            this.dome2 = new BABYLON.PhotoDome(
                 'testdome2',
                 'res/image/skybox/diningRoom360.jpg',
                 {
@@ -130,21 +140,23 @@
                 },
                 scene
             );
-            dome2.mesh.isPickable = false;
+            this.dome2.mesh.isPickable = false;
 
             // We can't use dome.mesh.visibility, so we pick up the dome.mesh into a Sphere so we can use visibility
-            this.sphere1 = dome1.mesh;
-            const mat1 = new BABYLON.StandardMaterial('', scene);
-            mat1.disableLighting = true;
-            mat1.emissiveTexture = new BABYLON.Texture('res/image/skybox/market360.jpg', scene, undefined, false)
-            this.sphere1.material = mat1;
+            this.sphere1 = this.dome1.mesh;
+            this.mat1 = new BABYLON.StandardMaterial('', scene);
+            this.mat1.disableLighting = true;
+            this.mat1.emissiveTexture = new BABYLON.Texture('res/image/skybox/market360.jpg', scene, undefined, false)
+            this.tex1 = this.mat1.emissiveTexture as BABYLON.Texture;
+            this.sphere1.material = this.mat1;
             this.sphere1.visibility = 1.0;
 
-            this.sphere2 = dome2.mesh;
-            const mat2 = new BABYLON.StandardMaterial('', scene)
-            mat2.disableLighting = true
-            mat2.emissiveTexture = new BABYLON.Texture('res/image/skybox/diningRoom360.jpg', scene, undefined, false)
-            this.sphere2.material = mat2
+            this.sphere2 = this.dome2.mesh;
+            this.mat2 = new BABYLON.StandardMaterial('', scene)
+            this.mat2.disableLighting = true
+            this.mat2.emissiveTexture = new BABYLON.Texture('res/image/skybox/diningRoom360.jpg', scene, undefined, false)
+            this.tex2 = this.mat2.emissiveTexture as BABYLON.Texture;
+            this.sphere2.material = this.mat2;
             this.sphere2.visibility = 0.0;
 
             scene.onPointerDown = (evt) => {
@@ -153,7 +165,7 @@
                 });
                 if (pickResult.hit) {
                     console.log('Sprite pick');
-                    this.animate = !this.animate;
+                    this.toggleAnimation();
                 }
             };
 
@@ -174,17 +186,49 @@
         /** ************************************************************************************************************
         *   Being invoked once per render cycle.
         ***************************************************************************************************************/
+        private toggleAnimation() : void
+        {
+            if ( this.animateTick === 0 )
+            {
+                this.animateTick = App.ANIMATION_TICKS;
+
+                this.animate = !this.animate;
+
+                if ( this.animate )
+                {
+                    this.sphere1.visibility = 1.0;
+                    this.sphere2.visibility = 0.0;
+                }
+                else
+                {
+                    this.sphere1.visibility = 0.0;
+                    this.sphere2.visibility = 1.0;
+                }
+            }
+        }
+
+        /** ************************************************************************************************************
+        *   Being invoked once per render cycle.
+        ***************************************************************************************************************/
         private onRun() : void
         {
-            if ( this.animate )
+            if ( this.animateTick > 0 )
             {
-                if ( this.sphere1.visibility > 0 ) this.sphere1.visibility -= App.TRANSFER_SPEED;
-                if ( this.sphere2.visibility < 1 ) this.sphere2.visibility += App.TRANSFER_SPEED;
-            }
-            else
-            {
-                if ( this.sphere1.visibility < 1 ) this.sphere1.visibility += App.TRANSFER_SPEED;
-                if ( this.sphere2.visibility > 0 ) this.sphere2.visibility -= App.TRANSFER_SPEED;
+                --this.animateTick;
+
+                if ( this.animate )
+                {
+                    this.sphere1.visibility =       ( this.animateTick / App.ANIMATION_TICKS );
+                    this.sphere2.visibility = 1.0 - ( this.animateTick / App.ANIMATION_TICKS );
+                }
+                else
+                {
+                    this.sphere1.visibility = 1.0 - ( this.animateTick / App.ANIMATION_TICKS );
+                    this.sphere2.visibility =       ( this.animateTick / App.ANIMATION_TICKS );
+
+                    // this.tex1.vScale += 0.01;
+                    // this.tex1.vOffset -= 0.001;
+                }
             }
         }
     }
