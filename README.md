@@ -19,6 +19,7 @@ npm run webpack:devserver
 ## 3. Open the app in your Browser
 ```
 http://localhost:1234
+```
 
 # Root Project
 
