@@ -7,8 +7,11 @@
     *******************************************************************************************************************/
     export class Game
     {
+        private sphere1;
+        private sphere2;
+
         /** ************************************************************************************************************
-        *   Inits the game from scratch.
+        *   Inits the app from scratch.
         ***************************************************************************************************************/
         public start() : void
         {
@@ -58,7 +61,7 @@
                 "treesManager",
                 "res/image/sprite/infoIcon.png",
                 10,
-                450,
+                600,
                 scene
             );
 
@@ -97,30 +100,25 @@
             // We can't use dome.mesh.visibility,
             // so we pick up the dome.mesh into a let sphere
             // so we can use visibility
-            const sphere1 = dome1.mesh;
+            this.sphere1 = dome1.mesh;
             const mat1 = new BABYLON.StandardMaterial('', scene)
             mat1.disableLighting = true
             mat1.emissiveTexture = new BABYLON.Texture('res/image/skybox/market360.jpg', scene, undefined, false)
             // mat1.sideOrientation = 0
-            sphere1.material = mat1;
-            sphere1.visibility = 1.0;
+            this.sphere1.material = mat1;
+            this.sphere1.visibility = 1.0;
 
-            const sphere2 = dome2.mesh;
+            this.sphere2 = dome2.mesh;
             const mat2 = new BABYLON.StandardMaterial('', scene)
             mat2.disableLighting = true
             mat2.emissiveTexture = new BABYLON.Texture('res/image/skybox/diningRoom360.jpg', scene, undefined, false)
             // mat1.sideOrientation = 0
-            sphere2.material = mat2
-            sphere2.visibility = 0.0;
-
-
-            scene.onBeforeRenderObservable.add(() => {
-                sphere1.visibility -= 0.01
-                sphere2.visibility += 0.01
-            })
+            this.sphere2.material = mat2
+            this.sphere2.visibility = 0.0;
 
             // Register a render loop to repeatedly render the scene
             engine.runRenderLoop(() => {
+                this.onRun();
                 scene.render();
             });
 
@@ -132,5 +130,14 @@
 
                 engine.resize();
             });
+        }
+
+        /** ************************************************************************************************************
+        *   Being invoked once per render cycle.
+        ***************************************************************************************************************/
+        private onRun() : void
+        {
+            this.sphere1.visibility -= 0.01
+            this.sphere2.visibility += 0.01
         }
     }
