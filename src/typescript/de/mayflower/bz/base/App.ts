@@ -4,9 +4,13 @@
 
     /** ****************************************************************************************************************
     *   Manages the game logic.
+    *
+    *   TODO requires heavy refactoring!
     *******************************************************************************************************************/
     export class App
     {
+        private static readonly     TRANSFER_SPEED :number = 0.025;
+    
         private sphere1;
         private sphere2;
 
@@ -70,29 +74,48 @@
                 "treesManager",
                 "res/image/sprite/infoIcon.png",
                 10,
-                600,
+                150,
                 scene
             );
             spriteManager.isPickable = true;
 
             this.sprite1 = new BABYLON.Sprite("sprite1", spriteManager);
-            this.sprite1.position = new BABYLON.Vector3( 0.0, 1.5, 2.5 );
+            this.sprite1.position = new BABYLON.Vector3( 0.0, 10.0, 10.0 );
             this.sprite1.isPickable = true;
             this.sprite2 = new BABYLON.Sprite("sprite2", spriteManager);
-            this.sprite2.position = new BABYLON.Vector3( 1.5, 0.0, -2.5 );
+            this.sprite2.position = new BABYLON.Vector3( 10.0, 0.0, -10.0 );
             this.sprite2.isPickable = true;
             this.sprite3 = new BABYLON.Sprite("sprite3", spriteManager);
-            this.sprite3.position = new BABYLON.Vector3( 0.0, -2.5, 1.5 );
+            this.sprite3.position = new BABYLON.Vector3( 0.0, -10.0, 10.0 );
             this.sprite3.isPickable = true;
             this.sprite4 = new BABYLON.Sprite("sprite4", spriteManager);
-            this.sprite4.position = new BABYLON.Vector3( -1.5, 2.5, 0.0 );
+            this.sprite4.position = new BABYLON.Vector3( -10.0, 10.0, 0.0 );
             this.sprite4.isPickable = true;
             this.sprite5 = new BABYLON.Sprite("sprite5", spriteManager);
-            this.sprite5.position = new BABYLON.Vector3( -2.5, -1.5, 0.0 );
+            this.sprite5.position = new BABYLON.Vector3( -10.0, -10.0, 0.0 );
             this.sprite5.isPickable = true;
             this.sprite6 = new BABYLON.Sprite("sprite6", spriteManager);
-            this.sprite6.position = new BABYLON.Vector3( 2.5, 0.0, 1.5 );
+            this.sprite6.position = new BABYLON.Vector3( 10.0, 0.0, 10.0 );
             this.sprite6.isPickable = true;
+
+this.sprite1.actionManager = new BABYLON.ActionManager(scene);
+this.sprite1.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function(ev){}));
+this.sprite1.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function(ev){}));
+this.sprite2.actionManager = new BABYLON.ActionManager(scene);
+this.sprite2.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function(ev){}));
+this.sprite2.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function(ev){}));
+this.sprite3.actionManager = new BABYLON.ActionManager(scene);
+this.sprite3.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function(ev){}));
+this.sprite3.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function(ev){}));
+this.sprite4.actionManager = new BABYLON.ActionManager(scene);
+this.sprite4.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function(ev){}));
+this.sprite4.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function(ev){}));
+this.sprite5.actionManager = new BABYLON.ActionManager(scene);
+this.sprite5.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function(ev){}));
+this.sprite5.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function(ev){}));
+this.sprite6.actionManager = new BABYLON.ActionManager(scene);
+this.sprite6.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOverTrigger, function(ev){}));
+this.sprite6.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPointerOutTrigger, function(ev){}));
 
             const dome1 = new BABYLON.PhotoDome(
                 'testdome1',
@@ -182,13 +205,13 @@
         {
             if ( this.animate )
             {
-                if ( this.sphere1.visibility > 0 ) this.sphere1.visibility -= 0.01
-                if ( this.sphere2.visibility < 1 ) this.sphere2.visibility += 0.01
+                if ( this.sphere1.visibility > 0 ) this.sphere1.visibility -= App.TRANSFER_SPEED;
+                if ( this.sphere2.visibility < 1 ) this.sphere2.visibility += App.TRANSFER_SPEED;
             }
             else
             {
-                if ( this.sphere1.visibility < 1 ) this.sphere1.visibility += 0.01
-                if ( this.sphere2.visibility > 0 ) this.sphere2.visibility -= 0.01
+                if ( this.sphere1.visibility < 1 ) this.sphere1.visibility += App.TRANSFER_SPEED;
+                if ( this.sphere2.visibility > 0 ) this.sphere2.visibility -= App.TRANSFER_SPEED;
             }
         }
     }
