@@ -204,6 +204,16 @@
                     this.sphere1.visibility = 0.0;
                     this.sphere2.visibility = 1.0;
                 }
+
+                this.tex1.uScale  = 1.0;
+                this.tex1.uOffset = 1.0;
+                this.tex1.vScale  = 1.0;
+                this.tex1.vOffset = 1.0;
+
+                this.tex2.uScale  = 1.0;
+                this.tex2.uOffset = 1.0;
+                this.tex2.vScale  = 1.0;
+                this.tex2.vOffset = 1.0;
             }
         }
 
@@ -220,14 +230,21 @@
                 {
                     this.sphere1.visibility =       ( this.animateTick / App.ANIMATION_TICKS );
                     this.sphere2.visibility = 1.0 - ( this.animateTick / App.ANIMATION_TICKS );
+
+                    // this.tex1.uScale  -= 0.01;
+                    // this.tex1.uOffset += 0.005;
+                    this.tex1.vScale  -= 0.01;
+                    this.tex1.vOffset += 0.005;
                 }
                 else
                 {
                     this.sphere1.visibility = 1.0 - ( this.animateTick / App.ANIMATION_TICKS );
                     this.sphere2.visibility =       ( this.animateTick / App.ANIMATION_TICKS );
 
-                    // this.tex1.vScale += 0.01;
-                    // this.tex1.vOffset -= 0.001;
+                    // this.tex2.uScale  -= 0.01;
+                    // this.tex2.uOffset += 0.005;
+                    this.tex2.vScale  -= 0.01;
+                    this.tex2.vOffset += 0.005;
                 }
             }
         }
