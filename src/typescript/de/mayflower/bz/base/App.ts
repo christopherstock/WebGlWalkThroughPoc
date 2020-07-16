@@ -5,10 +5,19 @@
     /** ****************************************************************************************************************
     *   Manages the game logic.
     *******************************************************************************************************************/
-    export class Game
+    export class App
     {
         private sphere1;
         private sphere2;
+
+        private animate = false;
+
+        private sprite1;
+        private sprite2;
+        private sprite3;
+        private sprite4;
+        private sprite5;
+        private sprite6;
 
         /** ************************************************************************************************************
         *   Inits the app from scratch.
@@ -65,18 +74,18 @@
                 scene
             );
 
-            const sprite1 = new BABYLON.Sprite("sprite1", spriteManager);
-            sprite1.position = new BABYLON.Vector3( 0.0, 1.5, 2.5 );
-            const sprite2 = new BABYLON.Sprite("sprite2", spriteManager);
-            sprite2.position = new BABYLON.Vector3( 1.5, 0.0, -2.5 );
-            const sprite3 = new BABYLON.Sprite("sprite3", spriteManager);
-            sprite3.position = new BABYLON.Vector3( 0.0, -2.5, 1.5 );
-            const sprite4 = new BABYLON.Sprite("sprite4", spriteManager);
-            sprite4.position = new BABYLON.Vector3( -1.5, 2.5, 0.0 );
-            const sprite5 = new BABYLON.Sprite("sprite5", spriteManager);
-            sprite5.position = new BABYLON.Vector3( -2.5, -1.5, 0.0 );
-            const sprite6 = new BABYLON.Sprite("sprite6", spriteManager);
-            sprite6.position = new BABYLON.Vector3( 2.5, 0.0, 1.5 );
+            this.sprite1 = new BABYLON.Sprite("sprite1", spriteManager);
+            this.sprite1.position = new BABYLON.Vector3( 0.0, 1.5, 2.5 );
+            this.sprite2 = new BABYLON.Sprite("sprite2", spriteManager);
+            this.sprite2.position = new BABYLON.Vector3( 1.5, 0.0, -2.5 );
+            this.sprite3 = new BABYLON.Sprite("sprite3", spriteManager);
+            this.sprite3.position = new BABYLON.Vector3( 0.0, -2.5, 1.5 );
+            this.sprite4 = new BABYLON.Sprite("sprite4", spriteManager);
+            this.sprite4.position = new BABYLON.Vector3( -1.5, 2.5, 0.0 );
+            this.sprite5 = new BABYLON.Sprite("sprite5", spriteManager);
+            this.sprite5.position = new BABYLON.Vector3( -2.5, -1.5, 0.0 );
+            this.sprite6 = new BABYLON.Sprite("sprite6", spriteManager);
+            this.sprite6.position = new BABYLON.Vector3( 2.5, 0.0, 1.5 );
 
             const dome1 = new BABYLON.PhotoDome(
                 'testdome1',
@@ -137,7 +146,10 @@
         ***************************************************************************************************************/
         private onRun() : void
         {
-            this.sphere1.visibility -= 0.01
-            this.sphere2.visibility += 0.01
+            if ( this.animate )
+            {
+                this.sphere1.visibility -= 0.01
+                this.sphere2.visibility += 0.01
+            }
         }
     }

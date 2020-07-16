@@ -14,7 +14,7 @@
         public      static  readonly    TITLE                   :string                     = 'webGL Walk Through, PoC, (c) 2020 Mayflower GmbH';
 
         /** The singleton instance of the game. */
-        public      static              game                    :bz.Game                    = null;
+        public      static              game                    :bz.App                    = null;
 
         /** ************************************************************************************************************
         *   This method is invoked when the application starts.
@@ -24,7 +24,7 @@
             document.title = bz.Main.TITLE;
             Main.acclaim();
 
-            Main.game = new bz.Game();
+            Main.game = new bz.App();
             Main.game.start();
         }
 
