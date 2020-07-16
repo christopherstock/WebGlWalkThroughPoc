@@ -1,0 +1,27 @@
+
+# node.js
+node_modules
+
+# macOS
+.DS_Store
+
+# IntelliJ
+.idea
+*.iml
+
+# Distribution path IS committed
+# /dist/js/
+
+# TypeScript build path
+bin
+
+# TypeDoc output
+doc
+
+# Jest coverage output
+coverage
+
+# huge files
+/_ASSETS/_AEP/promo8/assets/logo_Exploding.avi
+/_ASSETS/_AEP/promo8/assets/logo_Exploding2.avi
+/_ASSETS/_AEP/promo8/out
