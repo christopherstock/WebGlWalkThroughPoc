@@ -73,19 +73,26 @@
                 600,
                 scene
             );
+            spriteManager.isPickable = true;
 
             this.sprite1 = new BABYLON.Sprite("sprite1", spriteManager);
             this.sprite1.position = new BABYLON.Vector3( 0.0, 1.5, 2.5 );
+            this.sprite1.isPickable = true;
             this.sprite2 = new BABYLON.Sprite("sprite2", spriteManager);
             this.sprite2.position = new BABYLON.Vector3( 1.5, 0.0, -2.5 );
+            this.sprite2.isPickable = true;
             this.sprite3 = new BABYLON.Sprite("sprite3", spriteManager);
             this.sprite3.position = new BABYLON.Vector3( 0.0, -2.5, 1.5 );
+            this.sprite3.isPickable = true;
             this.sprite4 = new BABYLON.Sprite("sprite4", spriteManager);
             this.sprite4.position = new BABYLON.Vector3( -1.5, 2.5, 0.0 );
+            this.sprite4.isPickable = true;
             this.sprite5 = new BABYLON.Sprite("sprite5", spriteManager);
             this.sprite5.position = new BABYLON.Vector3( -2.5, -1.5, 0.0 );
+            this.sprite5.isPickable = true;
             this.sprite6 = new BABYLON.Sprite("sprite6", spriteManager);
             this.sprite6.position = new BABYLON.Vector3( 2.5, 0.0, 1.5 );
+            this.sprite6.isPickable = true;
 
             const dome1 = new BABYLON.PhotoDome(
                 'testdome1',
@@ -96,6 +103,7 @@
                 },
                 scene
             );
+            dome1.mesh.isPickable = false;
             const dome2 = new BABYLON.PhotoDome(
                 'testdome2',
                 'res/image/skybox/diningRoom360.jpg',
@@ -105,6 +113,7 @@
                 },
                 scene
             );
+            dome2.mesh.isPickable = false;
 
             // We can't use dome.mesh.visibility,
             // so we pick up the dome.mesh into a let sphere
@@ -124,6 +133,31 @@
             // mat1.sideOrientation = 0
             this.sphere2.material = mat2
             this.sphere2.visibility = 0.0;
+/*
+            scene.onPointerDown = ( evt:PointerEvent, pickResult:BABYLON.PickingInfo ) :void => {
+                bz.Main.log( pickResult );
+
+                if (
+                    pickResult.pickedSprite === this.sprite1
+                    || pickResult.pickedSprite === this.sprite2
+                    || pickResult.pickedSprite === this.sprite3
+                    || pickResult.pickedSprite === this.sprite4
+                    || pickResult.pickedSprite === this.sprite5
+                    || pickResult.pickedSprite === this.sprite6
+                ) {
+                    bz.Main.log( 'YES !' );
+
+                }
+            };
+*/
+    scene.onPointerDown = (evt) => {
+        const pickResult = scene.pickSprite(evt.x, evt.y, function (sprite) {return sprite.isPickable; });
+        if (pickResult.hit) {
+            console.log("Sprite pick");
+            this.animate = !this.animate;
+        }
+    };
+
 
             // Register a render loop to repeatedly render the scene
             engine.runRenderLoop(() => {
@@ -148,8 +182,13 @@
         {
             if ( this.animate )
             {
-                this.sphere1.visibility -= 0.01
-                this.sphere2.visibility += 0.01
+                if ( this.sphere1.visibility > 0 ) this.sphere1.visibility -= 0.01
+                if ( this.sphere2.visibility < 1 ) this.sphere2.visibility += 0.01
+            }
+            else
+            {
+                if ( this.sphere1.visibility < 1 ) this.sphere1.visibility += 0.01
+                if ( this.sphere2.visibility > 0 ) this.sphere2.visibility -= 0.01
             }
         }
     }
