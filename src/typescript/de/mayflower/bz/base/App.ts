@@ -44,6 +44,8 @@
             const canvasContext = canvas.getContext('webgl');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            canvas.style.touchAction = 'none';
+            canvas.style.msTouchAction = 'none';
             document.body.appendChild(canvas);
 
             const engine = new BABYLON.Engine(canvasContext, true);
