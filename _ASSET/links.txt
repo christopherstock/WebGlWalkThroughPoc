@@ -1,0 +1,40 @@
+
+Confluence
+==========
+https://confluence.mayflower.de/display/CO2OP/Audi+Nines+-+Mountain+Bikes+etc
+
+Custom Examples
+===============
+
+HanoiTS
+https://christopherstock.github.io/HanoiTS/dist/
+
+MinerTS
+https://christopherstock.github.io/MinerTS/dist/
+
+babylon-zero
+https://babylon.jenetic.de/v0.0.10/
+
+
+Babylon.js
+==========
+
+PhotoDome
+https://playground.babylonjs.com/#14KRGG#3
+
+VideoDome
+https://playground.babylonjs.com/#SQ5UC1#1
+
+Web VR
+https://playground.babylonjs.com/#TAFSN0#260
+
+3D GUI
+https://playground.babylonjs.com/#HB4C01#9
+
+3D Buttons
+https://playground.babylonjs.com/#8Y780Y#52
+
+
+Transition between PhotoDomes?
+==============================
+https://forum.babylonjs.com/t/animate-between-photodomes/1039
