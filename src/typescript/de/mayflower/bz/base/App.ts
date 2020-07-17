@@ -47,16 +47,30 @@
             document.body.appendChild(canvas);
 
             const engine = new BABYLON.Engine(canvasContext, true);
-engine.loadingUIBackgroundColor = "#ffffff";
-engine.displayLoadingUI();
+            engine.loadingUIBackgroundColor = "#ffffff";
+            engine.displayLoadingUI();
 
             const scene = new BABYLON.Scene(engine);
-
+/*
+            // free camera works good on desktop
             const camera2 = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 0, 0), scene);
             camera2.setTarget(BABYLON.Vector3.Zero());
             camera2.attachControl(canvas, true);
+*/
+            const camera = new BABYLON.ArcRotateCamera(
+                'Camera2',
+                -Math.PI / 2,
+                Math.PI / 2,
+                10,
+                BABYLON.Vector3.Zero(),
+                scene
+            );
+            camera.position = BABYLON.Vector3.Zero();
+            camera.attachControl(canvas, true);
+            camera.inputs.attached.mousewheel.detachControl(canvas);
 
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+/*
             const ground = BABYLON.Mesh.CreateGround(
                 'ground1',
                 1,
@@ -64,7 +78,7 @@ engine.displayLoadingUI();
                 1,
                 scene
             );
-
+*/
             const spriteManager = new BABYLON.SpriteManager(
                 'treesManager',
                 'res/image/sprite/infoIcon.png',
