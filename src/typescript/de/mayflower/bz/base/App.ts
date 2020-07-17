@@ -61,13 +61,16 @@
                 'Camera2',
                 -Math.PI / 2,
                 Math.PI / 2,
-                10,
+                0.0001,
                 BABYLON.Vector3.Zero(),
                 scene
             );
             camera.position = BABYLON.Vector3.Zero();
             camera.attachControl(canvas, true);
             camera.inputs.attached.mousewheel.detachControl(canvas);
+
+            camera.lowerRadiusLimit = 0.0001;
+            camera.upperRadiusLimit = 0.0001;
 
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
 /*
