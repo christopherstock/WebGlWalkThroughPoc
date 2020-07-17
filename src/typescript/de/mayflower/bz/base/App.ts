@@ -72,6 +72,7 @@
             camera.lowerRadiusLimit = 0.0001;
             camera.upperRadiusLimit = 0.0001;
 
+            bz.Main.log( 'camera clip radius limits' );
 
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
 /*
